@@ -7,6 +7,7 @@ package ex3;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,28 +37,27 @@ public class SearchServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
-            // parse...
-            ArrayList<BookBean> results = new ArrayList<BookBean>();
-            // results = parse(); 
+	    List<BookBean> results;
+	    if (request.getAttribute("id") == null)
+	    {
+		// parse... replace new Array... with call to the parser with regular handler
+		results = new ArrayList<BookBean>();
+		// results = parse(); 
+	    }
+	    else // parse with a different handler that find a book with specific ID
+	    {
+		// parse... replace new Array... with call to the parser with ID handler
+		results = new ArrayList<BookBean>();
+	    }
             
-           /* if (results.size() > 1)
+            if (results.size() > 1)
                 request.getRequestDispatcher("MultiResultPage.jsp")
                     .forward(request, response);
             else if (results.size() == 1)
-                request.getRequestDispatcher("SignleResultPage.jsp")
-                    .forward(request, response);
-            else */
-            
-            BookBean book = new BookBean();
-            book.setAuthor("my author");
-            book.setPrice(53);
-            book.setTitle("my title");
-            book.setDate("08/5/12");
-            book.setDescription("hello");
-            book.setGenre("genre");
-            book.setId("myid");
-            request.setAttribute("book", book);
                 request.getRequestDispatcher("SingleResultPage.jsp")
+                    .forward(request, response);
+            else 
+                request.getRequestDispatcher("NoResultPage.jsp")
                     .forward(request, response);
             
         } finally {
