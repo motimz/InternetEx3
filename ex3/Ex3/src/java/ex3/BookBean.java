@@ -1,5 +1,4 @@
-
-import java.util.Date;
+package ex3;
 
 public class BookBean 
 {
@@ -8,7 +7,7 @@ public class BookBean
 	private String title;
 	private String genre;
 	private double price;
-	private Date date;
+	private String date;
 	private String description;
 	
         public void setId(String str) { this.id = str; }
@@ -16,7 +15,7 @@ public class BookBean
 	public void setTitle(String str) { this.title = str; }
 	public void setGenre(String str) { this.genre = str; }
 	public void setPrice(double price) { this.price = price; }
-	public void setDate(Date date) { this.date = date; }
+	public void setDate(String str) { this.date = str; }
 	public void setDescription(String str) { this.description = str; }
 	
         public String getId() { return this.id; }
@@ -24,7 +23,7 @@ public class BookBean
 	public String getTitle()  { return this.title; }
 	public String getGenre()  { return this.genre; }
 	public double getPrice()  { return this.price; }
-	public Date   getDate()   { return this.date; }
+	public String   getDate()   { return this.date; }
 	public String getDescription() { return this.description; }
 }
 	

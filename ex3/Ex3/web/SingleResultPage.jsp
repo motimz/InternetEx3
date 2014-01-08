@@ -25,20 +25,18 @@
                 <td> Genre </td>
                 <td> Price </td>
                 <td> Date </td>
-            </tr>
-            <tr><td> {$book.Id} </td>
-                <td> {$book.Author} </td>
-                <td> {$book.Title} </td>
-                <td> {$book.Description} </td>
-                <td> {$book.Genre} </td>
-                <td> {$book.Price} </td>
-                <td> {$book.Date} </td>
+            </tr>            
+            <tr><td> ${book.id} </td>
+                <td> ${book.author} </td>
+                <td> ${book.title} </td>
+                <td> ${book.description} </td>
+                <td> ${book.genre} </td>
+                <td> ${book.price} </td>
+                <td> ${book.date} </td>
             </tr>            
             
         </table>
-        </div>
-        
-        
-        
+        <%@include file="backBtn.html" %>
+        </div>      
     </body>
 </html>

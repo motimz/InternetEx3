@@ -15,11 +15,9 @@
         <div class="container">
             <%@include file="myDetails.html" %>
 
-            
         <p class="errormsg">Sorry, no such book matches your search criteria</p>
+        
+        <%@include file="backBtn.html" %>
         </div>
-        
-        
-        
     </body>
 </html>

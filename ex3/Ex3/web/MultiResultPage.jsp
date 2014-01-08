@@ -25,14 +25,16 @@
                 <td> Price </td>
             </tr>
             <c:forEach items="${books.arrayVals}" var="book">
-                <tr><td><a href=SearchServlet?id={$book.Id}>Link</a> </td>
-                <td> {$book.Author} </td>
-                <td> {$book.Title} </td>
-                <td> {$book.Price} </td>
+                <tr><td><a href=SearchServlet?id={$book.Id}>Link</a></td>
+                <td> ${book.Author} </td>
+                <td> ${book.Title} </td>
+                <td> ${book.Price} </td>
             </tr>            
             </c:forEach>
 
         </table>
+                
+        <%@include file="backBtn.html" %>
         </div>
         
         

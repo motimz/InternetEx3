@@ -30,7 +30,6 @@
                     <input type="submit" value="Search" class="button" />
                 </p>
         </form>
-          
     </div>        
     </body>
 </html>
