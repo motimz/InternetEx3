@@ -5,6 +5,9 @@
 package xmltester;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -25,6 +28,14 @@ public class XMLtester {
      */
     public static void main(String[] args) {
         try{
+            
+        // create keywords array
+        ArrayList<String> keywords = new ArrayList<>();
+        
+        for (int i = 1; i < args.length; i++)
+            keywords.add(args[i]);
+        
+        Double limit = Double.parseDouble(args[0]);
         SAXParserFactory factory = SAXParserFactory.newInstance();      
         // Tell factory that the parser must understand namespaces       
         factory.setNamespaceAware(true);
@@ -32,7 +43,7 @@ public class XMLtester {
         XMLReader parser;
         parser = saxParser.getXMLReader();
         // Create a handler
-        Handler handler = new Handler();
+        Handler handler = new Handler(keywords,limit);
         // tell the parser to use  handler
         parser.setContentHandler(handler);
         // read and parse the document
@@ -45,6 +56,10 @@ public class XMLtester {
             System.out.println("SAXException : xml not well formed");
         }catch (IOException e) {
             System.out.println("IO error");
+        }
+         catch(NumberFormatException e)
+        {
+            System.err.println("Bad limit number");
         }
     }
 }

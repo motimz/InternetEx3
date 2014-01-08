@@ -15,11 +15,15 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author motimi
  */
 public class Handler extends DefaultHandler {
-    List<BookBean> bookL;
-    String tmpValue;
-    BookBean bookTmp;
+    private final List<BookBean> bookL;
+    private String tmpValue;
+    private BookBean bookTmp;
+    private final ArrayList<String> keywords;
+    private final double limit_price;
     
-    public Handler() {
+    public Handler(ArrayList<String> key,double limit) {
+        keywords=key;
+        limit_price=limit;
         bookL = new ArrayList<>();
     }
 
@@ -39,7 +43,8 @@ public class Handler extends DefaultHandler {
     public void endElement(String s, String s1, String element) throws SAXException {
         // if end of book element add to list
         if (element.equals("book")) {
-            bookL.add(bookTmp);
+            if(bookTmp.getPrice()<limit_price && checkKeyWords())
+                bookL.add(bookTmp);
         }
 
         if (element.equalsIgnoreCase("author")) {
@@ -83,5 +88,17 @@ public class Handler extends DefaultHandler {
     public List<BookBean> getBooks(){
         return bookL;   
     }
-
+    
+    private boolean checkKeyWords()
+    {
+        for(String keyword : keywords)
+        {
+            if(!bookTmp.getTitle().contains(keyword) &&
+               !bookTmp.getDescription().contains(keyword) &&
+               !bookTmp.getAuthor().contains(keyword))
+                return false;
+        }
+        return true;
+    }
+    
 }
