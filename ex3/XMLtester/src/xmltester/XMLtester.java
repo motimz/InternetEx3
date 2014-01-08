@@ -5,11 +5,11 @@
 package xmltester;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import myXmlParser.BookBean;
 import myXmlParser.Handler;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -33,11 +33,18 @@ public class XMLtester {
         parser = saxParser.getXMLReader();
         // Create a handler
         Handler handler = new Handler();
-        // Tell the parser to use this handler
+        // tell the parser to use  handler
         parser.setContentHandler(handler);
-        // Finally, read and parse the document
-        parser.parse("hello.xml");
+        // read and parse the document
+        parser.parse("book.xml");
+        List<BookBean> books=handler.getBooks();
+        System.out.println(books);
+        }catch (ParserConfigurationException e) {
+            System.out.println("ParserConfig error");
+        }catch (SAXException e) {
+            System.out.println("SAXException : xml not well formed");
+        }catch (IOException e) {
+            System.out.println("IO error");
         }
-        catch(Exception e){}
     }
 }
