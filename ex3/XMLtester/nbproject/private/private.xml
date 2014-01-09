@@ -5,7 +5,8 @@
         <group>
             <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/XMLtester/src/xmltester/XMLtester.java</file>
             <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/XMLtester/src/myXmlParser/BookBean.java</file>
-            <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/XMLtester/src/myXmlParser/Handler.java</file>
+            <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/XMLtester/src/myXmlParser/KeyPriceHandler.java</file>
+            <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/XMLtester/src/myXmlParser/IdHandler.java</file>
         </group>
     </open-files>
 </project-private>

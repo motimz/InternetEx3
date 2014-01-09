@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package myXmlParser;
 
 import java.util.ArrayList;
@@ -12,18 +14,16 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  *
- * @author motimi
+ * @author Moti
  */
-public class KeyPriceHandler extends DefaultHandler {
+public class IdHandler extends DefaultHandler{
     private final List<BookBean> bookL;
     private String tmpValue;
     private BookBean bookTmp;
-    private final ArrayList<String> keywords;
-    private final double limit_price;
+    private final String id;
     
-    public KeyPriceHandler(ArrayList<String> key,double limit) {
-        keywords=key;
-        limit_price=limit;
+    public IdHandler(String str) {
+        id=str;
         bookL = new ArrayList<>();
     }
 
@@ -43,7 +43,7 @@ public class KeyPriceHandler extends DefaultHandler {
     public void endElement(String s, String s1, String element) throws SAXException {
         // if end of book element add to list
         if (element.equals("book")) {
-            if(bookTmp.getPrice()<limit_price && checkKeyWords())
+            if(bookTmp.getId().equals(id))
                 bookL.add(bookTmp);
         }
 
@@ -87,18 +87,5 @@ public class KeyPriceHandler extends DefaultHandler {
     
     public List<BookBean> getBooks(){
         return bookL;   
-    }
-    
-    private boolean checkKeyWords()
-    {
-        for(String keyword : keywords)
-        {
-            if(!bookTmp.getTitle().contains(keyword) &&
-               !bookTmp.getDescription().contains(keyword) &&
-               !bookTmp.getAuthor().contains(keyword))
-                return false;
-        }
-        return true;
-    }
-    
+    }  
 }

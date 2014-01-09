@@ -13,7 +13,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import myXmlParser.BookBean;
-import myXmlParser.Handler;
+import myXmlParser.IdHandler;
+import myXmlParser.KeyPriceHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
@@ -43,12 +44,13 @@ public class XMLtester {
         XMLReader parser;
         parser = saxParser.getXMLReader();
         // Create a handler
-        Handler handler = new Handler(keywords,limit);
+        KeyPriceHandler kphandler = new KeyPriceHandler(keywords,limit);
+        IdHandler idhandler = new IdHandler("bk108");
         // tell the parser to use  handler
-        parser.setContentHandler(handler);
+        parser.setContentHandler(idhandler);
         // read and parse the document
         parser.parse("book.xml");
-        List<BookBean> books=handler.getBooks();
+        List<BookBean> books=idhandler.getBooks();
         System.out.println(books);
         }catch (ParserConfigurationException e) {
             System.out.println("ParserConfig error");
