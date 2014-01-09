@@ -28,60 +28,60 @@ public class KeyPriceHandler extends DefaultHandler {
     }
 
    @Override
-    public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException {
+    public void startElement(String namespaceURI, String localName, String qualifiedName, Attributes attributes) throws SAXException {
 
         // if current element is book , create new book
         // clear tmpValue on start of element
         tmpValue="";
-        if (elementName.equalsIgnoreCase("book")) {
+        if (qualifiedName.equalsIgnoreCase("book")) {
             bookTmp = new BookBean();
             bookTmp.setId(attributes.getValue("id"));
         }
     }
 
     @Override
-    public void endElement(String s, String s1, String element) throws SAXException {
+    public void endElement(String namespaceURI, String localName, String qualifiedName) throws SAXException {
         // if end of book element add to list
-        if (element.equals("book")) {
+        if (qualifiedName.equals("book")) {
             if(bookTmp.getPrice()<limit_price && checkKeyWords())
                 bookL.add(bookTmp);
         }
 
-        if (element.equalsIgnoreCase("author")) {
+        if (qualifiedName.equalsIgnoreCase("author")) {
             bookTmp.setAuthor(tmpValue);
         }
 
-        if (element.equalsIgnoreCase("title")) {
+        if (qualifiedName.equalsIgnoreCase("title")) {
 
             bookTmp.setTitle(tmpValue);
 
         }
 
-        if(element.equalsIgnoreCase("genre")){
+        if(qualifiedName.equalsIgnoreCase("genre")){
 
            bookTmp.setGenre(tmpValue);
 
         }
 
-        if(element.equalsIgnoreCase("price")){
+        if(qualifiedName.equalsIgnoreCase("price")){
 
             bookTmp.setPrice(Double.parseDouble(tmpValue));
 
         }
 
-        if(element.equalsIgnoreCase("publish_date")){
+        if(qualifiedName.equalsIgnoreCase("publish_date")){
                 bookTmp.setDate(tmpValue);
         }
         
-        if(element.equalsIgnoreCase("description")){
+        if(qualifiedName.equalsIgnoreCase("description")){
                 bookTmp.setDescription(tmpValue);
         }
     }
 
     @Override
 
-    public void characters(char[] ac, int start, int length) throws SAXException {
-       tmpValue += new String(ac, start, length);
+    public void characters(char[] ch, int start, int length) throws SAXException {
+       tmpValue += new String(ch, start, length);
        tmpValue= tmpValue.replaceAll("\\s+", " ");
     }
     
@@ -94,11 +94,12 @@ public class KeyPriceHandler extends DefaultHandler {
         for(String keyword : keywords)
         {
             if(!bookTmp.getTitle().contains(keyword) &&
-               !bookTmp.getDescription().contains(keyword) &&
-               !bookTmp.getAuthor().contains(keyword))
+               !bookTmp.getDescription().contains(keyword))
                 return false;
         }
         return true;
     }
+    
+    
     
 }

@@ -45,10 +45,10 @@ public class XMLtester {
         KeyPriceHandler kphandler = new KeyPriceHandler(keywords,limit);
         IdHandler idhandler = new IdHandler("bk108");
         // tell the parser to use  handler
-        parser.setContentHandler(idhandler);
+        parser.setContentHandler(kphandler);
         // read and parse the document
         parser.parse("book.xml");
-        List<BookBean> books=idhandler.getBooks();
+        List<BookBean> books=kphandler.getBooks();
         System.out.println(books);
         }catch (ParserConfigurationException e) {
             System.out.println("ParserConfig error");
@@ -56,10 +56,6 @@ public class XMLtester {
             System.out.println("SAXException : xml not well formed");
         }catch (IOException e) {
             System.out.println("IO error");
-        }
-         catch(NumberFormatException e)
-        {
-            System.err.println("Bad limit number");
         }
     }
 }
