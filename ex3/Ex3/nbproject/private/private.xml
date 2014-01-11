@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/gil/Documents/GitHub/InternetEx3/ex3/Ex3/web/index.jsp</file>
-            <file>file:/C:/Users/gil/Documents/GitHub/InternetEx3/ex3/Ex3/src/java/ex3/SearchServlet.java</file>
-            <file>file:/C:/Users/gil/Documents/GitHub/InternetEx3/ex3/Ex3/web/MultiResultPage.jsp</file>
-            <file>file:/C:/Users/gil/Documents/GitHub/InternetEx3/ex3/Ex3/web/myDetails.html</file>
+            <file>file:/home/suppi/Programming/JAVA/ex3/ex3/Ex3/src/java/ex3/SearchServlet.java</file>
+            <file>file:/home/suppi/Programming/JAVA/ex3/ex3/Ex3/web/index.jsp</file>
+            <file>file:/home/suppi/Programming/JAVA/ex3/ex3/Ex3/web/MultiResultPage.jsp</file>
+            <file>file:/home/suppi/Programming/JAVA/ex3/ex3/Ex3/src/java/ex3/IdHandler.java</file>
+            <file>file:/home/suppi/Programming/JAVA/ex3/ex3/Ex3/src/java/ex3/KeyPriceHandler.java</file>
+            <file>file:/home/suppi/Programming/JAVA/ex3/ex3/Ex3/web/SingleResultPage.jsp</file>
         </group>
     </open-files>
 </project-private>
