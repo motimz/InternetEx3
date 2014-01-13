@@ -17,7 +17,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Moti
  */
 public class IdHandler extends DefaultHandler{
-    private final List<BookBean> bookL;
+    private final ArrayList<BookBean> bookL;
     private String tmpValue;
     private BookBean bookTmp;
     private final String id;
@@ -85,7 +85,7 @@ public class IdHandler extends DefaultHandler{
        tmpValue= tmpValue.replaceAll("\\s+", " ");
     }
     
-    public List<BookBean> getBooks(){
+    public ArrayList<BookBean> getBooks(){
         return bookL;   
     }  
 }

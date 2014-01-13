@@ -15,16 +15,21 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author motimi
  */
 public class KeyPriceHandler extends DefaultHandler {
-    private final List<BookBean> bookL;
+    private final ArrayList<BookBean> bookL;
     private String tmpValue;
     private BookBean bookTmp;
     private final String[] keywords;
-    private final double limit_price;
+    private final Double limit_price;
     
-    public KeyPriceHandler(String[] key, double limit) {
-        keywords=key;
+    public KeyPriceHandler(String[] key, Double limit) {        
         limit_price=limit;
         bookL = new ArrayList<BookBean>();
+        this.keywords = key;
+        if (keywords != null)
+        {
+            for (int i = 0; i < keywords.length; ++i)
+                keywords[i] = keywords[i].toLowerCase();
+        }
     }
 
    @Override
@@ -43,7 +48,7 @@ public class KeyPriceHandler extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qualifiedName) throws SAXException {
         // if end of book element add to list
         if (qualifiedName.equals("book")) {
-            if(bookTmp.getPrice()<limit_price && checkKeyWords())
+            if(checkPrice() && checkKeyWords())
                 bookL.add(bookTmp);
         }
 
@@ -85,21 +90,27 @@ public class KeyPriceHandler extends DefaultHandler {
        tmpValue= tmpValue.replaceAll("\\s+", " ");
     }
     
-    public List<BookBean> getBooks(){
+    public ArrayList<BookBean> getBooks(){
         return bookL;   
     }
     
     private boolean checkKeyWords()
     {
-        for(String keyword : keywords)
-        {
-            if(!bookTmp.getTitle().contains(keyword) &&
-               !bookTmp.getDescription().contains(keyword))
-                return false;
-        }
+        if (keywords != null)
+            for(String keyword : keywords)
+            {
+                if(!bookTmp.getTitle().toLowerCase().contains(keyword) &&
+                   !bookTmp.getDescription().toLowerCase().contains(keyword))
+                    return false;
+            }
+        
         return true;
     }
-    
-    
-    
+    private boolean checkPrice()
+    {
+        if (limit_price == null)
+            return true;
+        
+        return (bookTmp.getPrice()<limit_price);
+    }
 }

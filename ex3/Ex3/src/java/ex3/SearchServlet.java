@@ -7,9 +7,6 @@ package ex3;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +43,6 @@ public class SearchServlet extends HttpServlet {
             // --------- create the parser -------------
 
             // create keywords array     
-            Double limit = Double.parseDouble((String)request.getParameter("searchPrice"));
             SAXParserFactory factory = SAXParserFactory.newInstance();
             // Tell factory that the parser must understand namespaces
             factory.setNamespaceAware(true);
@@ -55,7 +51,7 @@ public class SearchServlet extends HttpServlet {
             parser = saxParser.getXMLReader();
             // -------------------------------------
         
-	    List<BookBean> results;
+	    ArrayList<BookBean> results;
 	    if (request.getParameter("id") != null)
 	    {
                 IdHandler idhandler = new IdHandler(request.getParameter("id"));
@@ -66,7 +62,14 @@ public class SearchServlet extends HttpServlet {
 	    }
 	    else // parse with a different handler that find a book with specific ID
 	    {
-                String[] keywords = ((String)request.getParameter("searchKeywords")).split(" ");
+                String priceStr = (String)request.getParameter("searchPrice");
+                Double limit = null;
+                if (!priceStr.equals(""))
+                    limit = Double.parseDouble(priceStr);
+                String[] keywords = null;
+                String keywordsStr = (String)request.getParameter("searchKeywords");
+                if (!keywordsStr.equals(""))
+                    keywords = keywordsStr.split(" ");
                 // Create a handler
                 KeyPriceHandler kphandler = new KeyPriceHandler(keywords, limit);
                 // tell the parser to use handler
@@ -87,7 +90,7 @@ public class SearchServlet extends HttpServlet {
             }
             else if (results.size() == 1)
             {
-                request.setAttribute("book", results);
+                request.setAttribute("book", results.get(0));
                 request.getRequestDispatcher("SingleResultPage.jsp")
                     .forward(request, response);
             }
@@ -101,6 +104,7 @@ public class SearchServlet extends HttpServlet {
             System.out.println("SAXException : xml not well formed");
         }catch (IOException e) {
             System.out.println("IO error");
+            out.println("An error has occurred");
         } finally {
             out.close();
         }
