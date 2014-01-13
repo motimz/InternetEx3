@@ -1,3 +1,5 @@
+
+
 <%-- 
     Document   : MultiResultPage
     Created on : Jan 8, 2014, 11:50:23 AM
@@ -5,6 +7,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +18,6 @@
         <div class="container">
             
         <%@include file="myDetails.html" %>
-
             
             <h1>Multiple Results Found: </h1>
         <table border='1'>
@@ -24,9 +26,9 @@
                 <td> Title </td>
                 <td> Price </td>
             </tr>
-            <c:forEach items="${books.arrayVals}" var="book">
-                <tr><td><a href="SearchServlet?id={$book.Id}">Link</a></td>
-                <td> ${book.author} </td>
+            <c:forEach items="${books}" var="book">
+                <tr><td><a href="SearchServlet?id=${book.id}">Link</a></td>
+                    <td> ${book.author} </td>
                 <td> ${book.title} </td>
                 <td> ${book.price} </td>
             </tr>            

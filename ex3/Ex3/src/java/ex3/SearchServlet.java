@@ -7,12 +7,16 @@ package ex3;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 /**
  *
@@ -36,30 +40,71 @@ public class SearchServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            // --------- create the parser -------------
 
-	    List<BookBean> results;
-	    if (request.getAttribute("id") == null)
+            // create keywords array     
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            // Tell factory that the parser must understand namespaces
+            factory.setNamespaceAware(true);
+            SAXParser saxParser = factory.newSAXParser();
+            XMLReader parser;
+            parser = saxParser.getXMLReader();
+            // -------------------------------------
+        
+	    ArrayList<BookBean> results;
+	    if (request.getParameter("id") != null)
 	    {
+                IdHandler idhandler = new IdHandler(request.getParameter("id"));
+                parser.setContentHandler(idhandler);
+                parser.parse(getServletContext().getRealPath("/") + "book.xml");
 		// parse... replace new Array... with call to the parser with regular handler
-		results = new ArrayList<BookBean>();
-		// results = parse(); 
+		results = idhandler.getBooks();
 	    }
 	    else // parse with a different handler that find a book with specific ID
 	    {
+                String priceStr = (String)request.getParameter("searchPrice");
+                Double limit = null;
+                if (!priceStr.equals(""))
+                    limit = Double.parseDouble(priceStr);
+                String[] keywords = null;
+                String keywordsStr = (String)request.getParameter("searchKeywords");
+                if (!keywordsStr.equals(""))
+                    keywords = keywordsStr.split(" ");
+                // Create a handler
+                KeyPriceHandler kphandler = new KeyPriceHandler(keywords, limit);
+                // tell the parser to use handler
+                parser.setContentHandler(kphandler);
+                // read and parse the document
+                
+                parser.parse(getServletContext().getRealPath("/") + "book.xml");
 		// parse... replace new Array... with call to the parser with ID handler
-		results = new ArrayList<BookBean>();
+		results = kphandler.getBooks();
 	    }
             
             if (results.size() > 1)
+            {
+                request.setAttribute("books", results);
                 request.getRequestDispatcher("MultiResultPage.jsp")
                     .forward(request, response);
+                
+            }
             else if (results.size() == 1)
+            {
+                request.setAttribute("book", results.get(0));
                 request.getRequestDispatcher("SingleResultPage.jsp")
                     .forward(request, response);
+            }
             else 
                 request.getRequestDispatcher("NoResultPage.jsp")
                     .forward(request, response);
             
+        }catch (ParserConfigurationException e) {
+            System.out.println("ParserConfig error");
+        }catch (SAXException e) {
+            System.out.println("SAXException : xml not well formed");
+        }catch (IOException e) {
+            System.out.println("IO error");
+            out.println("An error has occurred");
         } finally {
             out.close();
         }
