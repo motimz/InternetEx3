@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/guest/code/java/ex3/Ex3/web/myDetails.html</file>
-            <file>file:/home/guest/code/java/ex3/Ex3/src/java/ex3/SearchServlet.java</file>
-            <file>file:/home/guest/code/java/ex3/Ex3/web/MultiResultPage.jsp</file>
+            <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/Ex3/src/java/ex3/BookBean.java</file>
+            <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/Ex3/src/java/ex3/SearchServlet.java</file>
+            <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/Ex3/src/java/ex3/KeyPriceHandler.java</file>
+            <file>file:/C:/Users/Moti/Documents/GitHub/InternetEx3/ex3/Ex3/src/java/ex3/IdHandler.java</file>
         </group>
     </open-files>
 </project-private>

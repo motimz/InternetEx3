@@ -23,7 +23,7 @@ public class BookBean
 	public String getTitle()  { return this.title; }
 	public String getGenre()  { return this.genre; }
 	public double getPrice()  { return this.price; }
-	public String   getDate()   { return this.date; }
+	public String getDate()   { return this.date; }
 	public String getDescription() { return this.description; }
 }
 	
